@@ -1,0 +1,95 @@
+name: riverpodfuckaround
+description: "A new Flutter project."
+
+
+publish_to: 'none'
+
+
+
+
+
+
+
+
+
+
+
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.7
+
+
+
+
+
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+  
+  
+  cupertino_icons: ^1.0.8
+  hooks_riverpod: ^3.2.1
+  flutter_hooks:
+  go_router: ^17.1.0
+  get_it: ^9.2.0
+  dio: ^5.9.1
+  shared_preferences: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  
+  
+  
+  
+  
+  flutter_lints: ^6.0.0
+
+
+
+
+
+flutter:
+
+  
+  uses-material-design: true
+
+  
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
