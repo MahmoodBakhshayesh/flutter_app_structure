@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../app/navigation/app_routes.dart';
+
+import '../navigation/app_routes.dart';
 
 /// An abstract interface for handling navigation within the app.
 ///

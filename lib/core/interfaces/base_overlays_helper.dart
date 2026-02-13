@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-import '../../app/navigation/app_routes.dart';
+
+import '../navigation/app_routes.dart';
 
 abstract class BaseOverlaysHelper {
   @protected

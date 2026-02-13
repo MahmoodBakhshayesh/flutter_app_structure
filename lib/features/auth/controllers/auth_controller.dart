@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import '../data/app_data.dart';
+import '../../../core/data/app_data.dart';
 
 class AuthController {
   

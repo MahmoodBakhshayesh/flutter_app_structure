@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../app/data/app_data.dart';
+import '../data/app_data.dart';
 import '../helpers/network_exception.dart';
 import 'base_failure.dart';
 import 'base_result.dart';

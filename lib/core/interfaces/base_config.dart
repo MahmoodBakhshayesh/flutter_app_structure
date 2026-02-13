@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import '../../app/data/app_data.dart';
 import '../constants/assets.dart';
 import '../constants/environment.dart';
 import '../constants/keys.dart';
+import '../data/app_data.dart';
 import '../helpers/logger_service.dart';
 import '../models/base/app_config.dart';
-import '../models/base/flavor_config.dart';
 import 'base_key_value_store.dart';
 
 abstract class ConfigLoader {

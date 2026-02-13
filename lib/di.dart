@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:riverpodfuckaround/features/auth/domain/interfaces/auth_repository_interface.dart';
 
-import 'app/controllers/auth_controller.dart';
-import 'app/data/app_data.dart';
+import 'core/data/app_data.dart';
+import 'features/auth/controllers/auth_controller.dart';
 import 'core/constants/keys.dart';
 import 'core/helpers/api_service.dart';
 import 'core/helpers/app_overlays_helper.dart';
@@ -52,7 +52,6 @@ Future<void> registerGlobalRepositories() async {
   locator.registerLazySingleton<PersonsRepositoryInterface>(() => PersonsRepository.builder);
   locator.registerFactory<PassengersController>(() => PassengersController(locator<PersonsRepositoryInterface>()));
   locator.registerFactory<PassengerDetailsController>(() => PassengerDetailsController(locator<PersonsRepositoryInterface>()));
-  locator.registerFactory<AuthController>(() => AuthController());
   // /// read token and initialize [AppData] if data exist.
   // final loginResponse = authRepo.loadLoginResponse();
   // if (loginResponse != null) {

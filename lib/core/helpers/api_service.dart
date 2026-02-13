@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import '../../app/data/app_data.dart';
+import '../data/app_data.dart';
 import '../helpers/logger_service.dart';
 import '../helpers/network_exception.dart';
 import '../helpers/networking_typedef.dart';

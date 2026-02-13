@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
-import '../../app/navigation/app_routes.dart';
 import '../helpers/logger_service.dart';
 import '../interfaces/base_failure.dart';
+import '../navigation/app_routes.dart';
 
 abstract class FailurePresenter {
   static BuildContext? get _rootContext => AppRoutes.rootContext;

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../app/navigation/app_routes.dart';
 import '../interfaces/base_navigation_service.dart';
+import '../navigation/app_routes.dart';
 
 class GoRouterHelper extends BaseNavigationService {
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../app/data/app_data.dart';
+import '../core/data/app_data.dart';
+
 
 class VersionText extends StatefulWidget {
   const VersionText({super.key});

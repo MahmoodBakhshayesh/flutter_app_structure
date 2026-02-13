@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
-import '../core/constants/const.dart';
-import '../core/helpers/app_scroll_behavior.dart';
-import '../core/theme/app_theme.dart';
-import '../l10n/app_localizations.dart';
-import '../widgets/global_failure_listener.dart';
-import 'navigation/app_routes.dart';
+import 'core/constants/const.dart';
+import 'core/helpers/app_scroll_behavior.dart';
+import 'core/navigation/app_routes.dart';
+import 'core/theme/app_theme.dart';
+import 'l10n/app_localizations.dart';
+import 'widgets/global_failure_listener.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

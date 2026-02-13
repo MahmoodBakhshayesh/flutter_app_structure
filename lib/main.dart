@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpodfuckaround/di.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app/app.dart';
+import 'app.dart';
 import 'core/interfaces/base_failure.dart';
 import 'core/interfaces/base_result.dart';
 import 'core/models/base/flavor_config.dart';
