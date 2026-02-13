@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import '../controllers/auth_controller.dart';
+import '../../../../app/controllers/auth_controller.dart';
 
 class LoginViewState {
   final bool isLoading;

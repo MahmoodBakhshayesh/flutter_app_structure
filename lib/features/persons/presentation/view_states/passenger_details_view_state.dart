@@ -1,17 +1,23 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:riverpodfuckaround/core/interfaces/api_state.dart';
+import '../../../../core/helpers/nullable.dart';
 import '../../controllers/passengers_controller.dart';
 import '../../domain/entities/person.dart';
 import '../../controllers/passenger_details_controller.dart';
 
 class PassengerDetailsViewState {
   final int id;
-  final Person? person;
+  final ApiState<Person?> person;
+  final ApiState<String?> someOtherData;
   final String status;
 
   PassengerDetailsViewState({
     required this.id,
-    this.person,
+    this.person = const .notStarted(),
+    this.someOtherData = const .notStarted(),
     this.status = 'loading',
   });
 
@@ -19,12 +25,14 @@ class PassengerDetailsViewState {
 
   PassengerDetailsViewState copyWith({
     int? id,
-    Person? person,
+    Nullable<ApiState<Person>>? person,
+    Nullable<ApiState<String>>? someOtherData,
     String? status,
   }) {
     return PassengerDetailsViewState(
       id: id ?? this.id,
-      person: person ?? this.person,
+      person: person == null ? this.person : person.value,
+      someOtherData: someOtherData == null ? this.someOtherData : someOtherData.value,
       status: status ?? this.status,
     );
   }
@@ -36,20 +44,49 @@ class PassengerDetailsNotifier extends AsyncNotifier<PassengerDetailsViewState> 
   PassengerDetailsNotifier(this.id);
 
   PassengerDetailsController get _controller => GetIt.I<PassengerDetailsController>();
+
   PassengersController get _paxController => GetIt.I<PassengersController>();
 
   @override
   Future<PassengerDetailsViewState> build() async {
-    // Initial state with ID
-    // Note: We can't set state directly in build immediately if we yield async.
-    // But we return the initial state or loading state.
+    // We return initial state first, then load data.
+    // Riverpod's AsyncNotifier build can return a Future.
+    // To handle the ApiState updates from the controller, we'll trigger the fetch.
+    await Future.delayed(Duration(seconds: 2));
+    // We start with notStarted
+    final initialState = PassengerDetailsViewState.initial(id);
 
-    // Fetch details using controller
-    // We can't use 'state = ...' before 'build' returns in AsyncNotifier usually?
-    // Actually AsyncNotifier build returns Future<State>.
+    // Use future to ensure we don't block build return but start the request
+    Future(() => getPassengerDetails());
+    Future(() => loadSomeOtherData());
 
-    final person = await _controller.getPassengerDetails(id);
-    return PassengerDetailsViewState(id: id, person: person, status: 'loaded');
+    return initialState;
+  }
+
+  Future<void> getPassengerDetails() async {
+    await _controller.getPassengerDetailsNew(
+      id: id.toString(),
+      emitState: (apiState) {
+        if (ref.mounted) {
+          state = AsyncData(state.value!.copyWith(person: Nullable(apiState)));
+        }
+      },
+    );
+  }
+
+  Future<void> loadSomeOtherData() async {
+    await _controller.loadSomeOtherData(
+      id: id.toString(),
+      emitState: (apiState) {
+        if (ref.mounted) {
+          state = AsyncData(
+            state.value!.copyWith(
+              someOtherData: Nullable(apiState),
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<void> refresh() async {
@@ -66,6 +103,12 @@ class PassengerDetailsNotifier extends AsyncNotifier<PassengerDetailsViewState> 
   }
 }
 
-final passengerDetailsNotifierProvider = AsyncNotifierProvider.family<PassengerDetailsNotifier, PassengerDetailsViewState, int>(
+final passengerDetailsNotifierProvider = AsyncNotifierProvider.autoDispose.family<PassengerDetailsNotifier, PassengerDetailsViewState, int>(
+  retry: retry,
   (arg) => PassengerDetailsNotifier(arg),
 );
+
+Duration? retry(int retryCount, Object error) {
+  retryCount = 0;
+  return null;
+}

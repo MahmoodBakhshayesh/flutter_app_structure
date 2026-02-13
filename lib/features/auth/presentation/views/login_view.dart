@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'login_vs.dart';
+import '../view_states/login_vs.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});

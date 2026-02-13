@@ -1,24 +1,32 @@
-import 'package:riverpodfuckaround/core/interfaces/result_int.dart';
-import 'package:riverpodfuckaround/features/persons/domain/data_sources/persons_data_source_remote.dart';
-
-import 'package:riverpodfuckaround/features/persons/usecases/get_passenger_details_usecase.dart';
-
-import 'package:riverpodfuckaround/features/persons/usecases/get_passengers_usecase.dart';
-
+import '../../../../core/interfaces/base_result.dart';
+import '../../../../di.dart';
+import '../../usecases/get_passenger_details_usecase.dart';
+import '../../usecases/get_passengers_usecase.dart';
+import '../data_sources/persons_data_source_local.dart';
+import '../data_sources/persons_data_source_remote.dart';
+import '../interfaces/persons_date_source_interface.dart';
 import '../interfaces/persons_repository_interface.dart';
 
 class PersonsRepository implements PersonsRepositoryInterface {
-  PersonsDataSourceRemote personsDataSourceRemote = PersonsDataSourceRemote();
+  final PersonsDateSourceInterface _remoteSource;
+  final PersonsDateSourceInterface _localSource;
+
+  PersonsRepository({required PersonsDateSourceInterface remoteSource, required PersonsDateSourceInterface localSource}) : _localSource = localSource, _remoteSource = remoteSource;
+
+  static PersonsRepositoryInterface get builder => PersonsRepository(
+    remoteSource: PersonsDataSourceRemote(locator()),
+    localSource: PersonsDataSourceLocal(locator()),
+  );
+
+  // PersonsDataSourceRemote personsDataSourceRemote = PersonsDataSourceRemote();
+
   @override
-  Future<Result<GetPassengerDetailsResponse>> getPassengerDetails(GetPassengerDetailsRequest request) async {
-    final r = await personsDataSourceRemote.getPassenger(request);
-    return Result.ok(r);
+  Future<GetPassengerDetailsResponse> getPassengerDetails(GetPassengerDetailsRequest request) async {
+     return  _remoteSource.getPassengerDetails(request);
   }
 
   @override
-  Future<Result<GetPassengersResponse>> getPassengers(GetPassengersRequest request) async{
-    final r = await personsDataSourceRemote.getPassengers(request);
-    return Result.ok(r);
+  Future<GetPassengersResponse> getPassengers(GetPassengersRequest request) async {
+    return  _remoteSource.getPassengers(request);
   }
-
 }

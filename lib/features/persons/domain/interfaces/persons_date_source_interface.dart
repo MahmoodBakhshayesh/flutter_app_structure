@@ -5,5 +5,5 @@ import '../entities/person.dart';
 
 abstract class PersonsDateSourceInterface {
   Future<GetPassengersResponse> getPassengers(GetPassengersRequest request);
-  Future<GetPassengerDetailsResponse> getPassenger(GetPassengerDetailsRequest request);
+  Future<GetPassengerDetailsResponse> getPassengerDetails(GetPassengerDetailsRequest request);
 }
