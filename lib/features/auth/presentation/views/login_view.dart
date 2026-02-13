@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../view_states/login_vs.dart';
@@ -31,6 +33,10 @@ class _LoginViewState extends ConsumerState<_LoginView> {
   Widget build(BuildContext context) {
     final viewState = ref.watch(loginNotifierProvider);
 
+    // Listen to LoginNotifier
+
+
+
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: Center(
@@ -55,13 +61,13 @@ class _LoginViewState extends ConsumerState<_LoginView> {
                 onPressed: viewState.isLoading
                     ? null
                     : () {
-                        ref
-                            .read(loginNotifierProvider.notifier)
-                            .login(
-                              _usernameController.text,
-                              _passwordController.text,
-                            );
-                      },
+                  ref
+                      .read(loginNotifierProvider.notifier)
+                      .login(
+                    _usernameController.text,
+                    _passwordController.text,
+                  );
+                },
                 child: viewState.isLoading ? const CircularProgressIndicator() : const Text('Login'),
               ),
             ],

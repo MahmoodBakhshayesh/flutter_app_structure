@@ -18,7 +18,7 @@ class _PassengersView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewState = ref.watch(passengersNotifierProvider);
     final viewStateNotifier = ref.read(passengersNotifierProvider.notifier);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Passengers List"),

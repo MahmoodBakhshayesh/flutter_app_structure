@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import '../../controllers/auth_controller.dart';
@@ -32,12 +34,19 @@ class LoginNotifier extends Notifier<LoginViewState> {
   // Use GetIt to get AuthController
   AuthController get _authController => GetIt.I<AuthController>();
 
+
+
+
   @override
   LoginViewState build() {
     return LoginViewState.initial();
   }
 
+
+
   Future<void> login(String username, String password) async {
+    log("login init");
+
     state = state.copyWith(isLoading: true, errorMessage: null);
     try {
       final success = await _authController.login(username, password);
@@ -49,6 +58,16 @@ class LoginNotifier extends Notifier<LoginViewState> {
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }
+
+    ref.onDispose((){
+      log("login disposed");
+    });
+    ref.onCancel((){
+      log("login cancel");
+    });
+    ref.onResume((){
+      log("login resums");
+    });
   }
 
   void reset() {
